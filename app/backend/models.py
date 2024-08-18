@@ -6,10 +6,10 @@ from django.db import models
 class Table(models.Model):
     qr_code = models.CharField(max_length=255, null=False)
     status = models.BooleanField(default=False)
-    assigned_waited_id = models.IntegerField(null=True)
+    assigned_waiter_id = models.IntegerField(null=True)
 
     def __str__(self):
-        return f"{self.id} - {self.status}"
+        return f"{self.id} - {self.status} - {self.assigned_waiter if self.assigned_waiter else 'No waiter assigned'}"
 
 
 class Client(models.Model):
