@@ -9,6 +9,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ProductFilter(filters.FilterSet):
     name_like = filters.CharFilter(field_name='name', lookup_expr='icontains')
+    category_like = filters.CharFilter(field_name='category', lookup_expr='icontains')
 
     class Meta:
         model = Product
