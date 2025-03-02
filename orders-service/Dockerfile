@@ -11,7 +11,7 @@ RUN npm install
 # Copy all source code
 COPY . .
 
-EXPOSE 3001
+EXPOSE 3002
 
 # Start app in development mode (direct from src)
 CMD ["npm", "run", "start:dev"]

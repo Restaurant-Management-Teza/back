@@ -1,116 +1,47 @@
 version: '3.9'
 
 services:
-  qr-code-service:
-    build: ./qr-code-service
-    container_name: qr-code-service
+  api-gateway:
+    build: ./api-gateway
+    volumes:
+      - ./api-gateway:/usr/src/app
+      - /app/node_modules
     ports:
-      - "3001:3001"
-    environment:
-      - NODE_ENV=production
-      - PORT=3001
+      - '3000:3000'
     depends_on:
-      - db
-    networks:
-      - restaurant-network
-
-  user-requests-service:
-    build: ./user-requests-service
-    container_name: user-requests-service
-    ports:
-      - "3002:3002"
-    environment:
-      - NODE_ENV=production
-      - PORT=3002
-    depends_on:
-      - db
-    networks:
-      - restaurant-network
-
-  waiter-management-service:
-    build: ./waiter-management-service
-    container_name: waiter-management-service
-    ports:
-      - "3003:3003"
-    environment:
-      - NODE_ENV=production
-      - PORT=3003
-    depends_on:
-      - db
-    networks:
-      - restaurant-network
-
-  menu-order-service:
-    build: ./menu-order-service
-    container_name: menu-order-service
-    ports:
-      - "3004:3004"
-    environment:
-      - NODE_ENV=production
-      - PORT=3004
-    depends_on:
-      - db
-    networks:
-      - restaurant-network
-
-  admin-management-service:
-    build: ./admin-management-service
-    container_name: admin-management-service
-    ports:
-      - "3005:3005"
-    environment:
-      - NODE_ENV=production
-      - PORT=3005
-    depends_on:
-      - db
-    networks:
-      - restaurant-network
-
-  ai-estimation-service:
-    build: ./ai-estimation-service
-    container_name: ai-estimation-service
-    ports:
-      - "3006:3006"
-    environment:
-      - NODE_ENV=production
-      - PORT=3006
-    depends_on:
-      - db
+      - orders-service
+      - admin-service
+      - auth-service
     networks:
       - restaurant-network
 
   auth-service:
     build: ./auth-service
-    container_name: auth-service
+    volumes:
+      - ./auth-service:/usr/src/app
+      - /app/node_modules
     ports:
-      - "3007:3007"
-    environment:
-      - NODE_ENV=production
-      - PORT=3007
+      - '3001:3001'
     networks:
       - restaurant-network
 
-#  notification-service:
-#    build: ./notification-service
-#    container_name: notification-service
-#    ports:
-#      - "3008:3008"
-#    environment:
-#      - NODE_ENV=production
-#      - PORT=3008
-#    networks:
-#      - restaurant-network
-
-  api-gateway:
-    build: ./api-gateway
-    container_name: api-gateway
+  orders-service:
+    build: ./orders-service
+    volumes:
+      - ./orders-service:/usr/src/app
+      - /app/node_modules
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-    depends_on:
-      - qr-code-service
-      - user-requests-service
+      - '3002:3002'
+    networks:
+      - restaurant-network
+
+  admin-service:
+    build: ./admin-service
+    volumes:
+      - ./admin-service:/usr/src/app
+      - /app/node_modules
+    ports:
+      - '3003:3003'
     networks:
       - restaurant-network
 

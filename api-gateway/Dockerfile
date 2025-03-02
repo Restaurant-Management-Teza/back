@@ -1,12 +1,18 @@
+# Use Node.js as the base image
 FROM node:20-alpine
 
-WORKDIR /app
+# Set the working directory
+WORKDIR /usr/src/app
 
+# Copy package.json and install dependencies
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
+# Copy all source code
 COPY . .
 
-EXPOSE 3001
+# Expose port 3000 (or your service port)
+EXPOSE 3000
 
-CMD ["npm", "run", "start:prod"]
+# Start app in development mode (direct from src)
+CMD ["npm", "run", "start:dev"]
