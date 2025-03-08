@@ -59,6 +59,20 @@ services:
     networks:
       - restaurant-network
 
+#  nginx_load_balancer:
+#    build:
+#      context: ./nginx
+#      dockerfile: Dockerfile
+#    ports:
+#      - "80:80"
+#    depends_on:
+#      - orders-service
+#      - admin-service
+#      - auth-service
+#      - api-gateway
+#    networks:
+#      - restaurant-network
+
 
 # DB replication todo
 #  postgresql:
